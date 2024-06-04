@@ -1,5 +1,7 @@
 package com.github.supercoding.web.controller;
 
+import com.github.supercoding.repository.ElectronalStoreItemRepository;
+import com.github.supercoding.repository.ItemEntity;
 import com.github.supercoding.web.dto.Item;
 import com.github.supercoding.web.dto.ItemBody;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +16,29 @@ import java.util.stream.Collectors;
 public class ElectronicStoreController {
     private static int serialItemId = 1;
     private List<Item> items = new ArrayList<>();
+
+    private ElectronalStoreItemRepository electronalStoreItemRepository;
+
+
+    public ElectronicStoreController(ElectronalStoreItemRepository electronalStoreItemRepository) {
+        this.electronalStoreItemRepository = electronalStoreItemRepository;
+    }
+
     @GetMapping("/items")
     public List<Item>findAllItem(){
-     return items;
+     List<ItemEntity> itemEntities = electronalStoreItemRepository.findAllItems();
+     return itemEntities.stream().map(Item::new).collect(Collectors.toList());
     }
     @PostMapping("/items")
     public String registerItem(@RequestBody ItemBody itemBody){
-        Item newItem = new Item(serialItemId++, itemBody);
-        items.add(newItem);
-        return "ID : "+newItem.getId();
+//        Item newItem = new Item(serialItemId++, itemBody);
+//        items.add(newItem);
+//        return "ID : "+newItem.getId();
+        ItemEntity itemEntity = new ItemEntity(null, itemBody.getName(), itemBody.getType(),
+                itemBody.getPrice(), itemBody.getSpec().getCpu(), itemBody.getSpec().getCapacity()
+        );
+        Integer itemId = electronalStoreItemRepository.saveItem(itemEntity);
+        return "ID : "+ itemId;
     }
     @GetMapping("/items/{id}")
     public Item findItemByPathId(@PathVariable String id){
@@ -60,15 +76,10 @@ public class ElectronicStoreController {
 
     @PutMapping("/items/{id}")
     public Item updateItem(@PathVariable String id , @RequestBody ItemBody itemBody){
-        Item itemFounded = items.stream()
-                .filter((item -> item.getId().equals(id)))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException());
-        items.remove(itemFounded);
-
-        Item itemUpdated = new Item(Integer.valueOf(id), itemBody);
-        items.add(itemUpdated);
-
+        Integer idInt = Integer.valueOf(id);
+        ItemEntity itemEntity = new ItemEntity(idInt, itemBody.getName(), itemBody.getType(), itemBody.getPrice(), itemBody.getSpec().getCpu(), itemBody.getSpec().getCapacity());
+        ItemEntity itemEntityUpdated = electronalStoreItemRepository.updateItemEntity(idInt, itemEntity);
+        Item itemUpdated = new Item(itemEntityUpdated);
         return itemUpdated;
     }
 }

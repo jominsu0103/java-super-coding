@@ -7,6 +7,11 @@ public class Spec {
     public Spec() {
     }
 
+    public Spec(String cpu, String capacity) {
+        this.cpu = cpu;
+        this.capacity = capacity;
+    }
+
     public String getCpu() {
         return cpu;
     }
