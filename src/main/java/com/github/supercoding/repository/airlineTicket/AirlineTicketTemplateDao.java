@@ -27,10 +27,30 @@ public class AirlineTicketTemplateDao implements AirlineTicketRepository{
             )
     ));
 
+    static RowMapper<AirlineTicketFlightInfo> airlineTicketFlightInfoRowMapper
+            = (((rs, rowNum) ->
+            new AirlineTicketFlightInfo(
+                    rs.getInt("A.ticket_id"),
+                    rs.getDouble("F.flight_price"),
+                    rs.getDouble("F.charge"),
+                    rs.getDouble("A.tax"),
+                    rs.getDouble("A.total_price")
+            )
+    ));
+
     @Override
     public List<AirlineTicket> findAllAirlineTicketsWithPlaceAndTicketType(String likePlace, String ticketType) {
         return jdbcTemplate.query("SELECT * FROM airline_ticket " +
                 "WHERE arrival_loc = ? AND ticket_type = ?", airlineTicketRowMapper, likePlace, ticketType);
+    }
+
+    @Override
+    public List<AirlineTicketFlightInfo> findAllAirLineTicketAndFlightInfo(Integer airlineTicketId) {
+        return jdbcTemplate.query("SELECT A.ticket_id , A.tax , A.total_price,F.flight_price,F.charge " +
+                "FROM airline_ticket A " +
+                  "JOIN Flight F " +
+                   "ON A.ticket_id = F.ticket_id " +
+                "WHERE A.ticket_id = ? ",airlineTicketFlightInfoRowMapper,airlineTicketId);
     }
 }
 
