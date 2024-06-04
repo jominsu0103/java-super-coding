@@ -3,9 +3,12 @@ package com.github.supercoding.web.dto.airline;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.supercoding.repository.airlineTicket.AirlineTicket;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
-
+@Getter
+@Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Ticket {
     private String depart;
@@ -23,25 +26,5 @@ public class Ticket {
         this.arrival = airlineTicket.getArrivalLocation();
         this.departureTime = airlineTicket.getDepartureAt().format(formatter);
         this.returnTime = airlineTicket.getReturnAt().format(formatter);
-    }
-
-    public String getDepart() {
-        return depart;
-    }
-
-    public String getArrival() {
-        return arrival;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public String getReturnTime() {
-        return returnTime;
-    }
-
-    public Integer getTicketId() {
-        return ticketId;
     }
 }

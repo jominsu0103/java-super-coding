@@ -4,9 +4,11 @@ import com.github.supercoding.repository.items.ElectronalStoreItemRepository;
 import com.github.supercoding.repository.items.ItemEntity;
 import com.github.supercoding.repository.storeSales.StoreSales;
 import com.github.supercoding.repository.storeSales.StoreSalesRepository;
+import com.github.supercoding.service.mapper.ItemMapper;
 import com.github.supercoding.web.dto.BuyOrder;
 import com.github.supercoding.web.dto.Item;
 import com.github.supercoding.web.dto.ItemBody;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,18 +16,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ElectronicStoreItemService {
-    private ElectronalStoreItemRepository electronalStoreItemRepository;
-    private StoreSalesRepository storeSalesRepository;
-
-    public ElectronicStoreItemService(ElectronalStoreItemRepository electronalStoreItemRepository, StoreSalesRepository storeSalesRepository) {
-        this.electronalStoreItemRepository = electronalStoreItemRepository;
-        this.storeSalesRepository = storeSalesRepository;
-    }
+    private final ElectronalStoreItemRepository electronalStoreItemRepository;
+    private final StoreSalesRepository storeSalesRepository;
 
     public List<Item> findAllItem() {
         List<ItemEntity> itemEntities = electronalStoreItemRepository.findAllItems();
-        return itemEntities.stream().map(Item::new).collect(Collectors.toList());
+        return itemEntities.stream().map(ItemMapper.INSTANCE::itemEntityToItem).collect(Collectors.toList());
     }
 
     public Integer saveItem(ItemBody itemBody) {
@@ -39,14 +37,14 @@ public class ElectronicStoreItemService {
     public Item findItemById(String id) {
         Integer idInt = Integer.parseInt(id);
         ItemEntity itemEntity = electronalStoreItemRepository.findItemById(idInt);
-        Item item = new Item(itemEntity);
+        Item item = ItemMapper.INSTANCE.itemEntityToItem(itemEntity);
         return item;
     }
 
     public List<Item> findItemsByIds(List<String> ids) {
         List<ItemEntity> itemEntities = electronalStoreItemRepository.findAllItems();
         return itemEntities.stream()
-                .map(Item::new)
+                .map(ItemMapper.INSTANCE::itemEntityToItem)
                 .filter((item -> ids.contains(item.getId())))
                 .collect(Collectors.toList());
     }
@@ -63,7 +61,7 @@ public class ElectronicStoreItemService {
                 itemBody.getSpec().getCpu(),itemBody.getSpec().getCapacity()
                 );
         ItemEntity itemEntityUpdated = electronalStoreItemRepository.updateItemEntity(idInt,itemEntity);
-        return new Item(itemEntityUpdated);
+        return ItemMapper.INSTANCE.itemEntityToItem(itemEntityUpdated);
 
     }
 

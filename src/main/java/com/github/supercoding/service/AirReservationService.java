@@ -9,6 +9,7 @@ import com.github.supercoding.repository.reservations.Reservation;
 import com.github.supercoding.repository.reservations.ReservationRepository;
 import com.github.supercoding.repository.users.UserEntity;
 import com.github.supercoding.repository.users.UserRepository;
+import com.github.supercoding.service.mapper.TicketMapper;
 import com.github.supercoding.web.dto.airline.ReservationRequest;
 import com.github.supercoding.web.dto.airline.ReservationResult;
 import com.github.supercoding.web.dto.airline.Ticket;
@@ -42,7 +43,7 @@ public class AirReservationService {
         String likePlace = userEntity.getLikeTravelPlace();
         List<AirlineTicket> airlineTickets = airlineTicketRepository.findAllAirlineTicketsWithPlaceAndTicketType(likePlace,ticketType);
 
-        List<Ticket> tickets = airlineTickets.stream().map(Ticket::new).collect(Collectors.toList());
+        List<Ticket> tickets = airlineTickets.stream().map(TicketMapper.INSTANCE::airlineTicketToTicket).collect(Collectors.toList());
         return tickets;
     }
     @Transactional(transactionManager = "tm2")
