@@ -67,7 +67,7 @@ public class ElectronicStoreItemService {
 
     }
 
-@Transactional
+@Transactional(transactionManager = "tm1")
     public Integer buyItems(BuyOrder buyOrder) {
         Integer itemId = buyOrder.getItemId();
         Integer itemNums = buyOrder.getItemNums();

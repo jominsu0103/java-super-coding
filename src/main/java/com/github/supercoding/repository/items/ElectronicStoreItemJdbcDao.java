@@ -1,5 +1,6 @@
 package com.github.supercoding.repository.items;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,7 @@ public class ElectronicStoreItemJdbcDao implements ElectronalStoreItemRepository
             )
     ));
 
-    public ElectronicStoreItemJdbcDao(JdbcTemplate jdbcTemplate) {
+    public ElectronicStoreItemJdbcDao(@Qualifier("jdbcTemplate1") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
