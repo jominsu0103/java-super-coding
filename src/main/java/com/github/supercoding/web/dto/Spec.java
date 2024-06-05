@@ -1,5 +1,8 @@
 package com.github.supercoding.web.dto;
 
+import lombok.ToString;
+
+@ToString
 public class Spec {
     private String cpu;
     private String capacity;

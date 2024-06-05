@@ -9,6 +9,9 @@ import com.github.supercoding.web.dto.BuyOrder;
 import com.github.supercoding.web.dto.Item;
 import com.github.supercoding.web.dto.ItemBody;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ElectronicStoreItemService {
     private final ElectronalStoreItemRepository electronalStoreItemRepository;
     private final StoreSalesRepository storeSalesRepository;
@@ -82,7 +86,10 @@ public class ElectronicStoreItemService {
 
         electronalStoreItemRepository.updateItemStock(itemId, itemEntity.getStock() - successBuyItemNums);
 
-        if(successBuyItemNums == 5) throw new RuntimeException("5개는 구매안돼");
+        if(successBuyItemNums == 5) {
+            log.error("5개를 구매하는건 허락하지 않습니다.");
+            throw new RuntimeException("5개는 구매안돼");
+        }
 
         StoreSales storeSales = storeSalesRepository.findStoreSalesById(itemEntity.getStoreId());
         storeSalesRepository.updateSalesAmount(itemEntity.getStoreId(), storeSales.getAmount() + totalPrice);
