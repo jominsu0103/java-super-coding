@@ -2,6 +2,10 @@ server:
   port: 8080
 logging:
   config: classpath:logback-spring-local.xml
+  level:
+      org:
+        hibernate:
+          SQL: DEBUG
 spring:
   mvc:
     pathmatch:
