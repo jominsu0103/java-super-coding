@@ -128,7 +128,7 @@ public class ElectronicStoreItemService {
 
     @Transactional(transactionManager = "tmJpa1")
     public List<StoreInfo> findAllStoreInfo() {
-        List<StoreSales> storeSales = storeSalesJpaRepository.findAll();
+        List<StoreSales> storeSales = storeSalesJpaRepository.findAllFetchJoin();
         List<StoreInfo> storeInfos = storeSales.stream().map(StoreInfo::new).collect(Collectors.toList());
         return storeInfos;
     }
