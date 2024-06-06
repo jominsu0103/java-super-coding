@@ -83,7 +83,7 @@ public class ElectronicStoreItemService {
 
         ItemEntity itemEntity = electronicStoreItemJpaRepository.findById(itemId)
                 .orElseThrow(()-> new NotFoundException("해당 아이디로 조회할 수 없습니다."));
-        if (itemEntity.getStoreId() == null) throw new RuntimeException("매장을 찾을 수 없음");
+        if (itemEntity.getStoreSales().isEmpty()) throw new RuntimeException("매장을 찾을 수 없음");
         if (itemEntity.getStock() <=0) throw new RuntimeException("상품 재고 없음");
 
         Integer successBuyItemNums;
@@ -99,7 +99,7 @@ public class ElectronicStoreItemService {
             throw new RuntimeException("5개는 구매안돼");
         }
 
-        StoreSales storeSales = storeSalesJpaRepository.findById(itemEntity.getStoreId())
+        StoreSales storeSales = itemEntity.getStoreSales()
                 .orElseThrow(()-> new NotFoundException("해당 아이디로 조회할 수 없습니다."));
         storeSales.setAmount(storeSales.getAmount()+totalPrice);
         return successBuyItemNums;

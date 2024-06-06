@@ -1,10 +1,13 @@
 package com.github.supercoding.repository.items;
 
+import com.github.supercoding.repository.storeSales.StoreSales;
 import com.github.supercoding.web.dto.ItemBody;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Objects;
+import java.util.Optional;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,8 +27,9 @@ public class ItemEntity {
     private String type;
     @Column(name = "price")
     private Integer price;
-    @Column(name = "store_id")
-    private Integer storeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id",nullable = true)
+    private StoreSales storeSales;
     @Column(name = "stock",columnDefinition = "DEFAULT 0 CHECK(stock) >= 0")
     private Integer stock;
     @Column(name = "cpu",length = 30)
@@ -39,7 +43,7 @@ public class ItemEntity {
         this.name = name;
         this.type = type;
         this.price = price;
-        this.storeId = null;
+        this.storeSales= null;
         this.stock = 0;
         this.cpu = cpu;
         this.capacity = capacity;
@@ -51,5 +55,9 @@ public class ItemEntity {
         this.price = itemBody.getPrice();
         this.cpu = itemBody.getSpec().getCpu();
         this.capacity = itemBody.getSpec().getCapacity();
+    }
+
+    public Optional<StoreSales> getStoreSales() {
+        return Optional.ofNullable(storeSales);
     }
 }
