@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,5 +68,28 @@ public class ElectronicStoreController {
     public String buyItem(@RequestBody BuyOrder buyOrder){
         Integer orderItemNums = electronicStoreItemService.buyItems(buyOrder);
         return "요청하신 item 중 "+orderItemNums +" 개를 구매함.";
+    }
+
+    @GetMapping("/items-types")
+    public List<Item> findItemByTypes(@RequestParam("type") List<String> types){
+        log.info("/items-types 요청 types: "+types);
+        List<Item> items = electronicStoreItemService.findItemsByTypes(types);
+        log.info("/items-types 응답 "+items);
+        return items;
+    }
+    @GetMapping("/items-prices")
+    public List<Item> findItemByPrices(@RequestParam("max") Integer maxValue){
+        List<Item> items = electronicStoreItemService.findItemsByOrderByPrices(maxValue);
+        return items;
+    }
+
+    @GetMapping("/items-page")
+    public Page<Item> findItemsPagination(Pageable pageable){
+        return electronicStoreItemService.findAllWithPageable(pageable);
+    }
+
+    @GetMapping("/items-types-page")
+    public Page<Item> findItemsPagination(@RequestParam("type")List<String> types, Pageable pageable){
+        return electronicStoreItemService.findAllWithPageable(types,pageable);
     }
 }
