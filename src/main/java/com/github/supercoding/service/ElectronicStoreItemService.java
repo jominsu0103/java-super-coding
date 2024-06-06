@@ -12,6 +12,7 @@ import com.github.supercoding.service.mapper.ItemMapper;
 import com.github.supercoding.web.dto.BuyOrder;
 import com.github.supercoding.web.dto.Item;
 import com.github.supercoding.web.dto.ItemBody;
+import com.github.supercoding.web.dto.StoreInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -123,5 +124,12 @@ public class ElectronicStoreItemService {
     public Page<Item> findAllWithPageable(List<String> types, Pageable pageable) {
         Page<ItemEntity> itemEntities = electronicStoreItemJpaRepository.findAllByTypeIn(types,pageable);
         return itemEntities.map(ItemMapper.INSTANCE::itemEntityToItem);
+    }
+
+    @Transactional(transactionManager = "tmJpa1")
+    public List<StoreInfo> findAllStoreInfo() {
+        List<StoreSales> storeSales = storeSalesJpaRepository.findAll();
+        List<StoreInfo> storeInfos = storeSales.stream().map(StoreInfo::new).collect(Collectors.toList());
+        return storeInfos;
     }
 }

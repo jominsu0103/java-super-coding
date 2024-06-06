@@ -4,6 +4,7 @@ import com.github.supercoding.service.ElectronicStoreItemService;
 import com.github.supercoding.web.dto.BuyOrder;
 import com.github.supercoding.web.dto.Item;
 import com.github.supercoding.web.dto.ItemBody;
+import com.github.supercoding.web.dto.StoreInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -91,5 +92,10 @@ public class ElectronicStoreController {
     @GetMapping("/items-types-page")
     public Page<Item> findItemsPagination(@RequestParam("type")List<String> types, Pageable pageable){
         return electronicStoreItemService.findAllWithPageable(types,pageable);
+    }
+
+    @GetMapping("/stores")
+    public List<StoreInfo> findAllStoreInfo(){
+        return electronicStoreItemService.findAllStoreInfo();
     }
 }
