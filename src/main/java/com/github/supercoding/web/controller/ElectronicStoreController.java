@@ -1,15 +1,13 @@
 package com.github.supercoding.web.controller;
 
 import com.github.supercoding.service.ElectronicStoreItemService;
-import com.github.supercoding.web.dto.BuyOrder;
-import com.github.supercoding.web.dto.Item;
-import com.github.supercoding.web.dto.ItemBody;
-import com.github.supercoding.web.dto.StoreInfo;
+import com.github.supercoding.web.dto.items.BuyOrder;
+import com.github.supercoding.web.dto.items.Item;
+import com.github.supercoding.web.dto.items.ItemBody;
+import com.github.supercoding.web.dto.items.StoreInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +31,6 @@ public class ElectronicStoreController {
     }
     @PostMapping("/items")
     public String registerItem(@RequestBody ItemBody itemBody){
-//        Item newItem = new Item(serialItemId++, itemBody);
-//        items.add(newItem);
-//        return "ID : "+newItem.getId();
         Integer itemId = electronicStoreItemService.saveItem(itemBody);
         return "ID : "+ itemId;
     }
@@ -80,7 +75,8 @@ public class ElectronicStoreController {
     }
     @GetMapping("/items-prices")
     public List<Item> findItemByPrices(@RequestParam("max") Integer maxValue){
-        List<Item> items = electronicStoreItemService.findItemsByOrderByPrices(maxValue);
+        List<Item> items = electronicStoreItemService.findItemsOrderByPrices(maxValue);
+
         return items;
     }
 

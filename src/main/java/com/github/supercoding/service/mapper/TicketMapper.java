@@ -12,14 +12,16 @@ import java.time.format.DateTimeFormatter;
 
 @Mapper
 public interface TicketMapper {
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     TicketMapper INSTANCE = Mappers.getMapper(TicketMapper.class);
 
-    //method
+    // 메소드
     @Mapping(target = "depart", source = "departureLocation")
     @Mapping(target = "arrival", source = "arrivalLocation")
-    @Mapping(target = "departureTime", source = "departureAt" ,qualifiedByName = "convert")
-    @Mapping(target = "returnTime", source = "returnAt" ,qualifiedByName = "convert")
+    @Mapping(target = "departureTime", source = "departureAt", qualifiedByName = "convert")
+    @Mapping(target = "returnTime", source = "returnAt", qualifiedByName = "convert")
     Ticket airlineTicketToTicket(AirlineTicket airlineTicket);
 
     @Named("convert")
