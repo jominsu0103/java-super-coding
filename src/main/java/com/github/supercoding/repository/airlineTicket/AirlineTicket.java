@@ -1,10 +1,7 @@
 package com.github.supercoding.repository.airlineTicket;
 
 import com.github.supercoding.repository.flight.Flight;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -20,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "airline_ticket")
 public class AirlineTicket {
     @Id @Column(name = "ticket_id")
