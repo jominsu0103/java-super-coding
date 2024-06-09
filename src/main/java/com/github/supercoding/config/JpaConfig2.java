@@ -27,8 +27,8 @@ public class JpaConfig2 {
         public LocalContainerEntityManagerFactoryBean entityManagerFactory2(@Qualifier("dataSource2") DataSource dataSource) {
                 LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
                 em.setDataSource(dataSource);
-                em.setPackagesToScan("com.github.supercodingspring.repository.airlineTicket", "com.github.supercodingspring.repository.users",
-                        "com.github.supercodingspring.repository.passenger", "com.github.supercodingspring.repository.reservations", "com.github.supercodingspring.repository.flight");
+                em.setPackagesToScan("com.github.supercoding.repository.airlineTicket", "com.github.supercoding.repository.users",
+                        "com.github.supercoding.repository.passenger", "com.github.supercoding.repository.reservations", "com.github.supercoding.repository.flight");
 
                 JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
                 em.setJpaVendorAdapter(vendorAdapter);
