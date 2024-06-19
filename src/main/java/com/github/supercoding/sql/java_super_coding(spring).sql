@@ -41,3 +41,8 @@ drop table store_sales;
 
 select * from item;
 select * from store_sales;
+
+select * from users;
+select * from items;
+select * from items_options;
+select * from option_values;
