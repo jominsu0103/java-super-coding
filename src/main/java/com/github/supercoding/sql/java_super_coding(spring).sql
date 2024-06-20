@@ -46,3 +46,50 @@ select * from users;
 select * from items;
 select * from items_options;
 select * from option_values;
+
+ALTER TABLE users MODIFY shopping_pay DECIMAL(10,2) DEFAULT 0;
+INSERT INTO users (username, email, password, phone_num, address, gender, profile_picture_url, about_me)
+VALUES ('johndoe', 'johndoe@example.com', 'password1234', '010-1234-5678', '1234 Main St, Anytown', 'Male', 'http://example.com/profile.jpg', 'Just a regular John Doe.');
+
+INSERT INTO users (username, email, password, phone_num, address, gender, profile_picture_url, about_me)
+VALUES ('example', 'example@example.com', 'example1234', '010-1111-1111', 'example address', 'Female', 'http://example.com/profile.jpg', 'Just a example');
+
+ALTER TABLE items CHANGE category category_id INT;
+
+desc items ;
+
+ALTER TABLE items ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(id);
+
+INSERT INTO categories(category_name) VALUES ('상의'),('하의'),('아우터'),('모자');
+
+INSERT INTO items (name, description, price, stock, seller_id, category_id, image_url, listed_date, end_date)
+VALUES ('셔츠', '기본형 와이셔츠',25000,100,2,1,'item example image url','2024-06-20','2024-07-20');
+
+INSERT INTO items (name, description, price, stock, seller_id, category_id, image_url, listed_date, end_date)
+VALUES ('와이드 데님팬츠', '쿨링 와이드 밴딩 데님팬츠',38000,100,2,2,'jean example image url','2024-06-20','2024-07-20');
+
+INSERT INTO items_options(item_id,option_name,additional_cost) VALUES (1,'색상',0);
+INSERT INTO items_options(item_id,option_name,additional_cost) VALUES (1,'사이즈',0);
+
+INSERT INTO items_options(item_id,option_name,additional_cost) VALUES (2,'색상',0);
+INSERT INTO items_options(item_id,option_name,additional_cost) VALUES (2,'사이즈',0);
+
+INSERT INTO option_values (option_id,value_name,additional_cost) VALUES (1,'빨강',0),(1,'주황',0),(1,'노랑',0),(1,'초록',0),(1,'파랑',0),(1,'남색',0),(1,'보라',0);
+INSERT INTO option_values (option_id,value_name,additional_cost) VALUES (2,'90',0),(2,'95',0),(2,'100',0),(2,'105',0);
+
+INSERT INTO option_values (option_id,value_name,additional_cost) VALUES (3,'연청',0),(3,'진청',0),(3,'흑청',0);
+INSERT INTO option_values (option_id,value_name,additional_cost) VALUES (4,'S',0),(4,'M',0),(4,'L',0),(4,'XL',0);
+
+INSERT INTO carts(user_id) VALUES (1);
+
+INSERT INTO cart_items (cart_id,item_id,quantity) VALUES (1,1,2);
+INSERT INTO cart_items_item_options (cart_items_id , items_options_id) VALUES (1,1);
+INSERT INTO cart_items_item_options (cart_items_id , items_options_id) VALUES (1,2);
+INSERT INTO cart_items_option_values(cart_items_id , option_values_id) VALUES (1,6);
+INSERT INTO cart_items_option_values (cart_items_id, option_values_id) VALUES (1,10);
+
+INSERT INTO cart_items (cart_id,item_id,quantity) VALUES (1,2,1);
+INSERT INTO cart_items_item_options (cart_items_id , items_options_id) VALUES (2,3);
+INSERT INTO cart_items_item_options (cart_items_id , items_options_id) VALUES (2,4);
+INSERT INTO cart_items_option_values(cart_items_id , option_values_id) VALUES (2,13);
+INSERT INTO cart_items_option_values (cart_items_id, option_values_id) VALUES (2,17);
