@@ -93,3 +93,28 @@ INSERT INTO cart_items_item_options (cart_items_id , items_options_id) VALUES (2
 INSERT INTO cart_items_item_options (cart_items_id , items_options_id) VALUES (2,4);
 INSERT INTO cart_items_option_values(cart_items_id , option_values_id) VALUES (2,13);
 INSERT INTO cart_items_option_values (cart_items_id, option_values_id) VALUES (2,17);
+
+INSERT INTO orders(user_id , total_price , order_date) VALUES (1 , 0,'2024-06-22 23:00');
+INSERT INTO order_items (order_id , item_id , quantity , price_per_unit) VALUES (1 , 1 , 2 , 25000);
+INSERT INTO order_items (order_id, item_id , quantity , price_per_unit) VALUES (1 , 2 , 1 , 38000);
+UPDATE orders SET total_price = (25000 + 38000);
+
+SELECT
+    o.id AS order_id,
+    o.total_price AS total_price,
+    o.order_date AS order_date,
+    JSON_ARRAYAGG(
+            JSON_OBJECT(
+                    'item_id', oi.item_id,
+                    'quantity', oi.quantity,
+                    'price_per_unit', oi.price_per_unit
+            )
+    ) AS items
+FROM
+    orders o
+        JOIN
+    order_items oi ON o.id = oi.order_id
+WHERE
+    o.user_id = 1
+GROUP BY
+    o.id, o.total_price, o.order_date;
