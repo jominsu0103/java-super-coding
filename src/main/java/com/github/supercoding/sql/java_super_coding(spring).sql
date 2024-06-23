@@ -118,3 +118,5 @@ WHERE
     o.user_id = 1
 GROUP BY
     o.id, o.total_price, o.order_date;
+
+-- json-arrayagg와 json_object를 사용해 json 형태의 배열로 감싸서 여러 정보들을 취합해 조회할 수 있음
