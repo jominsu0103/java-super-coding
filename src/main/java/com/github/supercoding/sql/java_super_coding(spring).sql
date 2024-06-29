@@ -135,3 +135,4 @@ GROUP BY
 -- 배열을 파싱할때 생기는 문제 해결
 
 -- project2nd S3 access
+-- S3 logic update
