@@ -136,3 +136,4 @@ GROUP BY
 
 -- project2nd S3 access
 -- S3 logic update
+-- log info warn error 작성 및 2차 프로젝트 종료
