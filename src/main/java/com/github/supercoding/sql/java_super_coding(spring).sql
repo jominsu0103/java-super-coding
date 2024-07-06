@@ -137,3 +137,4 @@ GROUP BY
 -- project2nd S3 access
 -- S3 logic update
 -- log info warn error 작성 및 2차 프로젝트 종료
+-- project 피드백 대기 및 3차 프로젝트 준비
