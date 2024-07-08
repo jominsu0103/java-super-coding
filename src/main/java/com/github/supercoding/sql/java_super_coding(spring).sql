@@ -139,3 +139,4 @@ GROUP BY
 -- log info warn error 작성 및 2차 프로젝트 종료
 -- project 피드백 대기 및 3차 프로젝트 준비
 -- project 자유주제 및 ERD 기획단계 준비
+-- 파이널 프로젝트 주제 선정 및 대분류 기능기획
