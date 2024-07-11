@@ -141,3 +141,4 @@ GROUP BY
 -- project 자유주제 및 ERD 기획단계 준비
 -- 파이널 프로젝트 주제 선정 및 대분류 기능기획
 -- figma wireframe 작성중
+-- ERD v1 작성 project 3rd
