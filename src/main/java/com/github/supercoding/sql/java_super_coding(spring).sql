@@ -142,3 +142,4 @@ GROUP BY
 -- 파이널 프로젝트 주제 선정 및 대분류 기능기획
 -- figma wireframe 작성중
 -- ERD v1 작성 project 3rd
+-- ERD v2 작성 project 3rd 노션 참고 가능하도록 read.me 작성예정
