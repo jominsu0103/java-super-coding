@@ -143,3 +143,4 @@ GROUP BY
 -- figma wireframe 작성중
 -- ERD v1 작성 project 3rd
 -- ERD v2 작성 project 3rd 노션 참고 가능하도록 read.me 작성예정
+-- 게시판 관련 api 기능 정리
