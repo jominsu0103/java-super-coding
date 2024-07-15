@@ -145,3 +145,4 @@ GROUP BY
 -- ERD v2 작성 project 3rd 노션 참고 가능하도록 read.me 작성예정
 -- 게시판 관련 api 기능 정리
 -- 전체 api 목록 정리
+-- project 3rd sql 작성 사진 첨부
