@@ -146,3 +146,40 @@ GROUP BY
 -- 게시판 관련 api 기능 정리
 -- 전체 api 목록 정리
 -- project 3rd sql 작성 사진 첨부
+
+/*
+INSERT INTO users (name, email, password, resident_num, phone_num, gender, profile_picture_url, status, role, created_at)
+VALUES
+('John Doe', 'john.doe@example.com', 'password123', 123456789, '123-456-7890', 'MALE', 'http://example.com/john.jpg', 'ACTIVE', 'USER', NOW()),
+('Jane Smith', 'jane.smith@example.com', 'password456', 987654321, '098-765-4321', 'FEMALE', 'http://example.com/jane.jpg', 'ACTIVE', 'USER', NOW());
+
+INSERT INTO routes (user_id , title , description , start_at , end_at , created_at) values (1,'2024 경주여행','낯선사람과 떠나는 경주여행','2024-07-24','2024-07-26',NOW());
+
+INSERT INTO routes_day (routes_id , day) values (1 , '2024-07-24');
+INSERT INTO routes_day (routes_id , day) values (1 , '2024-07-25');
+INSERT INTO routes_day (routes_id , day) values (1 , '2024-07-26');
+
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (1 , '파스타' , 'RESTAURANT');
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (1 , '신상카페' , 'CAFE');
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (1 , '경주 5성급 호텔' , 'HOTEL');
+
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (2 , '경주 돈까스 맛집' , 'RESTAURANT');
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (2 , '루프탑 카페' , 'CAFE');
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (2 , '경주 황리단길 한옥펜션' , 'HOTEL');
+
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (3 ,'경주 국밥 맛집' , 'RESTAURANT');
+INSERT INTO routes_day_place (routes_day_id , place_name , place_category) values (3 , '서울역' , 'ATTRACTION');\
+
+INSERT INTO boards (user_id , route_id , title , summary, content , category , created_at) values (1 , 1, '짧은 경주여행', '낯선사람과 떠나는 경주 여행은 어떠세요?','1일차부터 3일차까지 정말 여유로운 코스로 계획했습니다.','COMPANION',NOW());
+
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 파스타집 사진' , 'http://example.com/pasta.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 신상카페 사진' , 'http://example.com/sinsangCafe.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 5성급 호텔 사진' , 'http://example.com/5starHotel.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 돈까스 맛집 사진' , 'http://example.com/porkcutlet.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 루프탑 사진' , 'http://example.com/rooftop.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 한옥펜션 사진' , 'http://example.com/Hanok.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 국밥맛집 사진' , 'http://example.com/gukbab.jpg');
+INSERT INTO post_imgs (post_id , name , url) values (1 , '서울역 사진' , 'http://example.com/seoulstation.jpg');
+
+INSERT INTO accompany (user_id , post_id , age_min , age_max , target_number , participant_count , gender) values (1 , 1, 20 , 30 , 4 , 'ALL');
+*/
