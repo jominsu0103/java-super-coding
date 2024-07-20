@@ -182,4 +182,105 @@ INSERT INTO post_imgs (post_id , name , url) values (1 , '경주 국밥맛집 �
 INSERT INTO post_imgs (post_id , name , url) values (1 , '서울역 사진' , 'http://example.com/seoulstation.jpg');
 
 INSERT INTO accompany (user_id , post_id , age_min , age_max , target_number , participant_count , gender) values (1 , 1, 20 , 30 , 4 , 'ALL');
+
+테이블 구조 변경
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  email VARCHAR(40) NOT NULL UNIQUE,
+  password VARCHAR(100) NOT NULL,
+  resident_num VARCHAR(20) NOT NULL,
+  phone_num VARCHAR(20),
+  gender ENUM('MALE', 'FEMALE') NOT NULL,
+  profile_picture_url VARCHAR(255) DEFAULT '',
+  status ENUM('ACTIVE', 'DELETED') DEFAULT 'ACTIVE',
+  role ENUM('USER', 'ALL') DEFAULT 'USER',
+  created_at DATETIME
+);
+
+CREATE TABLE routes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  title VARCHAR(50),
+  description TEXT,
+  start_at DATE,
+  end_at DATE,
+  created_at DATETIME,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE boards (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  route_id INT NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  summary VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  category ENUM('REVIEW', 'COMPANION', 'GUIDE') NOT NULL,
+  created_at DATETIME NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (route_id) REFERENCES routes(id)
+);
+
+CREATE TABLE trips(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  post_id INT NOT NULL,
+  age_min INT NOT NULL,
+  age_max INT NOT NULL,
+  target_number INT NOT NULL,
+  participant_count INT DEFAULT 0,
+  gender ENUM('MALE', 'FEMALE', 'ALL'),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (post_id) REFERENCES boards(id)
+);
+
+CREATE TABLE users_in_travel(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  trip_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (trip_id) REFERENCES trips(id)
+);
+
+CREATE TABLE comments (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  post_id INT,
+  content TEXT NOT NULL,
+  created_at DATETIME,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (post_id) REFERENCES boards(id)
+);
+
+CREATE TABLE post_imgs (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  post_id INT,
+  url VARCHAR(255) NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES boards(id)
+);
+
+
+CREATE TABLE routes_day (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  routes_id INT,
+  day DATE,
+  FOREIGN KEY (routes_id) REFERENCES routes(id)
+);
+
+CREATE TABLE routes_day_place (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  routes_day_id INT,
+  place_name VARCHAR(50),
+  place_category ENUM('ATTRACTION', 'CAFE', 'RESTAURANT', 'HOTEL'),
+  FOREIGN KEY (routes_day_id) REFERENCES routes_day(id)
+);
+
+CREATE TABLE likes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  post_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (post_id) REFERENCES boards(id)
+);
 */
