@@ -283,4 +283,13 @@ CREATE TABLE likes (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (post_id) REFERENCES boards(id)
 );
+
+남은 api 목록
+게시글 등록
+게시글 수정
+게시글 삭제
+내가 참여한 여행 게시글 조회
+메인 페이지 게시글 조회
+여행 참여 신청
+여행 참여 취소
 */
