@@ -293,3 +293,5 @@ CREATE TABLE likes (
 여행 참여 신청
 여행 참여 취소
 */
+
+-- new project 설계예정
